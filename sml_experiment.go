@@ -94,7 +94,7 @@ func get_value2_pi(a, b float64, factor float64, bins int) float64 {
 		for j := 0; j < bins; j += 1{
 			if *F_prime_xy_flag == "diag" {
 				if i == j {
-					s = 2.0*factor
+					s = 2*factor
 				} else {
 					s = 0.0
 				}
@@ -106,7 +106,7 @@ func get_value2_pi(a, b float64, factor float64, bins int) float64 {
 				if i == j {
 					s = 0.0
 				} else {
-					s =  -2.0*factor
+					s =  2.0*factor
 				}
 			} else {
 				panic("unknown F_prime_xy_flag parameter.")
