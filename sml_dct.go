@@ -20,6 +20,9 @@ var mutex sync.Mutex
 var cpuprofile = flag.String("cpuprofile", "", "write cpu profile to file")
 var memprofile = flag.String("memprofile", "", "write mem profile to file")
 
+var F_prime_config = flag.String("F_prime_config", "inv", "setting orientation of the diagonal of the F' matrix")
+
+
 type McParameter struct {
 	phi        float64
 	psi        float64
@@ -125,10 +128,20 @@ func get_value3(a, b, c float64, factor float64, bins int) float64 {
 	for k := 0; k < bins; k += 1 {
 		for i := 0; i < bins; i += 1 {
 			for j := 0; j < bins; j += 1 {
-				if (i + j == k - 1) || (i + j == k + (bins - 1) ) {
-					s = factor
+				if *F_prime_config == "not_inv" {
+					if ((bins - 1) - i + j == k - 1) || ((bins - 1) - i + j == k + (bins - 1) ) {
+						s = factor
+					} else {
+						s = 0.0
+					}
+				} else if *F_prime_config == "inv" {
+					if (i + j == k - 1) || (i + j == k + (bins - 1) ) {
+						s = factor
+					} else {
+						s = 0.0
+					}
 				} else {
-					s = 0.0
+					panic("invalid F_prime_config parameter")
 				}
 				t1 := (2*float64(i) + 1.0) * a * math.Pi / float64(2 * bins) 
 				t2 := (2*float64(j) + 1.0) * b * math.Pi / float64(2 * bins)
