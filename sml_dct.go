@@ -125,7 +125,7 @@ func get_value3(a, b, c float64, factor float64, bins int) float64 {
 	for k := 0; k < bins; k += 1 {
 		for i := 0; i < bins; i += 1 {
 			for j := 0; j < bins; j += 1 {
-				if i + j == k {
+				if (i + j == k - 1) || (i + j == k + (bins - 1) ) {
 					s = factor
 				} else {
 					s = 0.0
